@@ -8,3 +8,11 @@ class DB_INFO:
     PASSWORD = "Zaq1@wsx"
     DATABASE = "mydb01_dev"
     CHARSET = "utf8mb4"
+
+
+JWT_SECRET = "abcd1234"
+ALGORITHM = "HS512"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+T_USERNAME = "user123"
+T_PASSWORD = "pass123"

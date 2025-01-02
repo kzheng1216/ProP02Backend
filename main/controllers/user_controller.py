@@ -6,4 +6,4 @@ router = APIRouter()
 
 @router.get("/api/users")
 async def get_all_users():
-    return UserService().get_users()
+    return UserService.get_users()
