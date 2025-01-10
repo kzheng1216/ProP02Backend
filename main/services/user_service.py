@@ -1,13 +1,10 @@
-from main.models.user import User
-from main.utils.db_conn import conn
+from main.dao.user_dao import UserDao
 
 
 class UserService:
 
-    @staticmethod
-    def get_users():
-        with conn.cursor() as cursor:
-            sql = "SELECT id, name, email FROM user"
-            cursor.execute(sql)
-            result = cursor.fetchall()
-            return [User(id=user['id'], name=user['name'], email=user['email']) for user in result]
+    def get_user_by_id(self, id: int):
+        return UserDao().get_user_by_id(id)
+
+    def get_all_users(self):
+        return UserDao().get_all_users()
