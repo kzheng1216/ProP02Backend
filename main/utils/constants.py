@@ -16,3 +16,12 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 T_USERNAME = "user123"
 T_PASSWORD = "pass123"
+
+
+REDIS_CONFIG = {
+    'host': '106.15.33.153',
+    'port': 6379,
+    'db': 0,
+    'username': 'mystic',
+    'password': 'Zaq1@wsx'
+}
