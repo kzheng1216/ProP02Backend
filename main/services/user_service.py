@@ -1,12 +1,13 @@
 import json
 
 from main.dao.user_dao import UserDao
-from main.models.user import User
 from main.utils.redis_cache import read_redis_data, write_redis_data
+from retry import retry
 
 
 class UserService:
 
+    @retry(exceptions=Exception, tries=3, delay=2)
     def get_user_by_id(self, id: int):
         user_data_redis = read_redis_data(f"user_{id}")
         if user_data_redis:

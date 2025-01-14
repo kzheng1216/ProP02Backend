@@ -2,8 +2,10 @@ from http.client import HTTPException
 
 from main.dao.base_dao import BaseDao
 from main.models.user import User
+from main.utils.singleton import singleton
 
 
+@singleton
 class UserDao(BaseDao):
 
     def get_user_by_id(self, id) -> User:
