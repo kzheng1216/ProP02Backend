@@ -1,0 +1,15 @@
+---
+- name: Run a shell command
+  hosts: 106.15.33.153
+  tasks:
+    - name: Run a shell command
+      shell: echo "Hello ansible" >/tmp/h.txt && date >>/tmp/h.txt
+      register: result
+
+    - name: Read file content
+      command: cat /tmp/h.txt
+      register: file_content
+
+    - name: Display file content
+      debug:
+        var: file_content.stdout

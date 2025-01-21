@@ -52,10 +52,10 @@ def write_redis_data(redis_client, key, value):
 
 
 # 写入数据到Redis
-write_redis_data("user_2", {"id": 2, "name": "name_2", "email": "email_2"})
+# write_redis_data("user_2", {"id": 2, "name": "name_2", "email": "email_2"})
 
 # 从Redis中读取数据
-print(read_redis_data('user_2'))
+# print(read_redis_data('user_2'))
 
 
 
