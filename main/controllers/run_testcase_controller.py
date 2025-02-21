@@ -10,7 +10,7 @@ router = APIRouter()
 async def run_tests(data: RunTestData):
     print("---->> Run Test <<----", data)
     if data.mark_type in ['api', 'ui', 'ut', 'e2e']:
-        return RunTestService().run_tests(data.mark_type)
+        return RunTestService().run_tests(data.mark_type, data.report_type)
 
     return {
         "status": "error",
