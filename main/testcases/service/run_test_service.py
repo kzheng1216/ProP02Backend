@@ -29,7 +29,7 @@ class RunTestService:
                 '-m', mark_type,
                 f"--json={REPORT_JSON}"
             ]
-        
+        # allure generate temps --clean -o allure-report
         result = self.run_cmd(command)
         if result.returncode != 0:
             print("Error running pytest")
