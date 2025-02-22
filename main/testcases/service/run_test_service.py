@@ -68,13 +68,13 @@ class RunTestService:
             return html_content
         
     def generate_allure_report(self):
-        command = [
+        # allure generate temps --clean -o allure-report
+        self.run_cmd([
             'allure',
             'generate',
             TESTCASES_RESULTS_DIR,
             '--clean',
             '-o', TESTCASES_ALLURE_REPORT_DIR
-        ]
-        # allure generate temps --clean -o allure-report
-        self.run_cmd(command)
-
+        ])
+        # Run this command in path: /Users/zys/myworkspace/ProP02Backend/main/testcases to view allure report
+        # allure open allure-report
