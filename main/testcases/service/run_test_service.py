@@ -27,22 +27,24 @@ class RunTestService:
                 'pytest',
                 TESTCASES_CASE_DIR,
                 '-m', mark_type,
-                f"--json-report",
-                f"--json-report-file={REPORT_JSON}"
+                f"--json={REPORT_JSON}"
             ]
-        print('Command: ', command)
-        return self.run_cmd(command, report_type)
-    
-    def run_cmd(self, command, report_type):
-        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        print("result: ", result)
+        
+        result = self.run_cmd(command)
         if result.returncode != 0:
             print("Error running pytest")
             return {
                 "status": "error",
                 "message": "Error when running PyTest"
             }
+    
         return self.result(report_type)
+    
+    def run_cmd(self, command):
+        print("#------ command: ", command)
+        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        print("#------ result: ", result)     
+        return result
     
     def result(self, report_type):
         if report_type == ReportType.JSON.value:
