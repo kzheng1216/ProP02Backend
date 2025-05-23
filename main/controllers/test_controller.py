@@ -4,6 +4,6 @@ from pydantic import BaseModel
 router = APIRouter()
 
 
-@router.get("/test")
+@router.get("/api/test")
 async def test_api():
     return {"message": "Test API"}
