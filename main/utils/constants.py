@@ -17,6 +17,11 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 T_USERNAME = "user123"
 T_PASSWORD = "pass123"
 
+USER_API_PERMISSIONS = {
+    T_USERNAME: [
+        "/api/*" 
+    ]
+}
 
 REDIS_CONFIG = {
     'host': '106.15.33.153',

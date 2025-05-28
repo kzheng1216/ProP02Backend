@@ -1,7 +1,6 @@
 import jwt
 import datetime
-
-from main.utils.constants import JWT_SECRET, ALGORITHM
+from main.utils.constants import JWT_SECRET, ALGORITHM, USER_API_PERMISSIONS
 
 
 class TokenProvider:
@@ -14,6 +13,7 @@ class TokenProvider:
             'sub': username,
             'name': username
         }
-        token = jwt.encode(payload, JWT_SECRET, algorithm=ALGORITHM)
+        token = jwt.encode(payload, JWT_SECRET, algorithm=[ALGORITHM])
         print("Token generated: ", token)
         return token
+
