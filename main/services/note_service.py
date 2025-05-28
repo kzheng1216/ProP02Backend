@@ -13,8 +13,7 @@ class NoteService:
         if note_data_redis:
             print(f"-->>note_{id} found in redis, data: {note_data_redis}")
             return note_data_redis
-
-        note_data_db = NoteDao().get_user_by_id(id)
+        note_data_db = NoteDao().get_note_by_id(id)
         if note_data_db:
             print(f"-->>Save note_{id} in redis")
             write_redis_data(f"note_{id}", note_data_db.dict())
