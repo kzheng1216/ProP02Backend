@@ -4,6 +4,19 @@ from functools import wraps
 import jwt
 import fnmatch
 from main.utils.constants import JWT_SECRET, ALGORITHM, USER_API_PERMISSIONS
+import datetime
+
+
+def generate_token(username="admin"):
+    payload = {
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1),
+        'iat': datetime.datetime.utcnow(),
+        'sub': username,
+        'name': username
+    }
+    token = jwt.encode(payload, JWT_SECRET, algorithm=ALGORITHM)
+    print("Token generated: ", token)
+    return token
 
 
 def jwt_required():
@@ -15,7 +28,7 @@ def jwt_required():
                 raise HTTPException(status_code=401, detail="Missing or invalid token")
             token = auth_header.split(" ")[1]
             try:
-                payload = jwt.decode(token, JWT_SECRET, algorithms=[ALGORITHM])
+                payload = jwt.decode(token, JWT_SECRET, algorithms=ALGORITHM)
                 username = payload.get('sub')
                 api_url = request.url.path
                 print("API URL:", api_url)

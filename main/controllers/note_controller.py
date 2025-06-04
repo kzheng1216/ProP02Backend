@@ -20,7 +20,7 @@ async def get_all_notes(request: Request):
 
 @router.post("/api/note/add")
 @jwt_required()
-async def add_note(request: Request, note: dict):
+async def add_note(request: Request, note: Note):
     print("---->> Add Note <<----", note)
     NoteService().add_note(note)
     return {"message": "SUCCESS"}
@@ -28,7 +28,7 @@ async def add_note(request: Request, note: dict):
 
 @router.post("/api/note/delete")
 @jwt_required()
-async def delete_note(request: Request, note: dict):
+async def delete_note(request: Request, note: Note):
     print("---->> Delete Note <<----", note)
     NoteService().delete_note(note)
     return {"message": "SUCCESS"}

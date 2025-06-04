@@ -1,5 +1,6 @@
 import json
 
+from main.models.note import Note
 from main.dao.note_dao import NoteDao
 from main.utils.redis_cache import read_redis_data, write_redis_data
 from retry import retry
@@ -23,8 +24,8 @@ class NoteService:
     def get_all_notes(self):
         return NoteDao().get_all_notes()
 
-    def add_note(self, note: dict):
+    def add_note(self, note: Note):
         return NoteDao().add_note(note)
 
-    def delete_note(self, note: dict):
+    def delete_note(self, note: Note):
         return NoteDao().delete_note(note)
