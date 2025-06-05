@@ -1,16 +1,15 @@
-CREATE DATABASE IF NOT EXISTS mydb01;
-USE mydb01;
+CREATE DATABASE IF NOT EXISTS mydb02_dev;
+USE mydb02_dev;
 
 CREATE TABLE IF NOT EXISTS user (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL
+    email VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL
 );
 
-INSERT INTO user (name, email) VALUES ('zys', 't@hotmail.com');
-
-
-SET user_1 "{\"id\":1,\"name\":\"zys\",\"email\":\"t@hotmail.com\"}"
+-- user123/pass123
+INSERT INTO user (name, email, password) VALUES ('user123', 'user123@hotmail.com', '$2b$12$abcdefghijklmnopqrstuuqtksgstOHrgkSMBpr4WAH.OValZhwfa');
 
 
 CREATE TABLE note (

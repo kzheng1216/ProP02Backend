@@ -8,7 +8,7 @@ router = APIRouter()
 @router.get("/api/user/{id}")
 @AuthRequired()
 async def get_user(request: Request, id: int):
-    return UserService().get_user_by_id(id)
+    return UserService().get_user_by_id(id).dict(exclude_none=True)
 
 
 @router.get("/api/users")

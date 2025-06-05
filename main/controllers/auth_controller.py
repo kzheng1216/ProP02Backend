@@ -9,7 +9,7 @@ router = APIRouter()
 @router.post("/auth/login")
 async def authenticate_user(login_data: AuthData):
 
-    if AuthService.validate_user(login_data.username, login_data.password):
+    if AuthService.logon(login_data.username, login_data.password):
         token = AuthRequired.generate_token(login_data.username)
         return {
             "token": token

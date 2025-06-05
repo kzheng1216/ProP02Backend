@@ -6,7 +6,7 @@ class DB_INFO:
     PORT = 3306
     USERNAME = "mysql"
     PASSWORD = "Zaq1@wsx"
-    DATABASE = "mydb01_dev"
+    DATABASE = "mydb02_dev"
     CHARSET = "utf8mb4"
 
 
@@ -17,11 +17,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 T_USERNAME = "user123"
 T_PASSWORD = "pass123"
 
-USER_API_PERMISSIONS = {
-    T_USERNAME: [
-        "/api/*" 
-    ]
-}
+AUTH_SALT = b"$2b$12$abcdefghijklmnopqrstuv"
 
 REDIS_CONFIG = {
     'host': '106.15.33.153',

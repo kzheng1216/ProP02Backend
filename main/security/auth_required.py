@@ -1,10 +1,9 @@
+import datetime
 from fastapi import Request, HTTPException, status
 from fastapi.responses import JSONResponse
 from functools import wraps
 import jwt
-import fnmatch
-from main.utils.constants import JWT_SECRET, ALGORITHM, USER_API_PERMISSIONS
-import datetime
+from main.utils.constants import JWT_SECRET, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 
 
 class AuthRequired: 
@@ -12,7 +11,7 @@ class AuthRequired:
     @staticmethod
     def generate_token(username="admin"):
         payload = {
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1),
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),
             'iat': datetime.datetime.utcnow(),
             'sub': username,
             'name': username
@@ -33,20 +32,6 @@ class AuthRequired:
                 username = payload.get('sub')
                 api_url = request.url.path
                 print("API URL:", api_url)
-                
-                if username in USER_API_PERMISSIONS:
-                    is_api_authorized = False
-                    api_rules = USER_API_PERMISSIONS[username]
-                    for api_rule in api_rules:
-                        if fnmatch.fnmatch(api_url, api_rule):
-                            print(f'User has permission to access this resource. {api_url}|{api_rules}')
-                            is_api_authorized = True
-                            break
-                    if not is_api_authorized:
-                        print(f'User does not have permission to access this resource. {api_url}|{api_rules}')
-                        raise HTTPException(status_code=403, detail="User does not have permission to access this resource")               
-                else:   
-                    raise HTTPException(status_code=403, detail="User does not have permission to access this resource")
                 
             except jwt.ExpiredSignatureError:
                 raise HTTPException(status_code=401, detail="Token expired")
