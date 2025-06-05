@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Request
-from main.security.jwt_required import jwt_required
+from main.security.auth_required import AuthRequired
 from main.models.run_test_data import RunTestData
 from main.testcases.service.run_test_service import RunTestService
 
@@ -7,7 +7,7 @@ router = APIRouter()
 
 
 @router.post("/api/run_tests")
-@jwt_required()
+@AuthRequired()
 async def run_tests(request: Request, data: RunTestData):
     print("---->> Run Test <<----", data)
     if data.mark_type in ['api', 'ui', 'ut', 'e2e']:

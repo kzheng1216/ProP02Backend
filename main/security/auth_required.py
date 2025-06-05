@@ -7,20 +7,21 @@ from main.utils.constants import JWT_SECRET, ALGORITHM, USER_API_PERMISSIONS
 import datetime
 
 
-def generate_token(username="admin"):
-    payload = {
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1),
-        'iat': datetime.datetime.utcnow(),
-        'sub': username,
-        'name': username
-    }
-    token = jwt.encode(payload, JWT_SECRET, algorithm=ALGORITHM)
-    print("Token generated: ", token)
-    return token
+class AuthRequired: 
+    
+    @staticmethod
+    def generate_token(username="admin"):
+        payload = {
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1),
+            'iat': datetime.datetime.utcnow(),
+            'sub': username,
+            'name': username
+        }
+        token = jwt.encode(payload, JWT_SECRET, algorithm=ALGORITHM)
+        print("Token generated: ", token)
+        return token
 
-
-def jwt_required():
-    def decorator(func):
+    def __call__(self, func):
         @wraps(func)
         async def wrapper(request: Request, *args, **kwargs):
             auth_header = request.headers.get("Authorization")
@@ -45,7 +46,7 @@ def jwt_required():
                         print(f'User does not have permission to access this resource. {api_url}|{api_rules}')
                         raise HTTPException(status_code=403, detail="User does not have permission to access this resource")               
                 else:   
-                    raise HTTPException( status_code=403, detail="User does not have permission to access this resource")
+                    raise HTTPException(status_code=403, detail="User does not have permission to access this resource")
                 
             except jwt.ExpiredSignatureError:
                 raise HTTPException(status_code=401, detail="Token expired")
@@ -54,4 +55,3 @@ def jwt_required():
 
             return await func(request, *args, **kwargs)
         return wrapper
-    return decorator

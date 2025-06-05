@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from main.security.jwt_required import generate_token
+from main.security.auth_required import AuthRequired
 from main.models.auth_data import AuthData
 from main.services.auth_service import AuthService
 
@@ -10,7 +10,7 @@ router = APIRouter()
 async def authenticate_user(login_data: AuthData):
 
     if AuthService.validate_user(login_data.username, login_data.password):
-        token = generate_token(login_data.username)
+        token = AuthRequired.generate_token(login_data.username)
         return {
             "token": token
         }
